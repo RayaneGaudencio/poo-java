@@ -44,8 +44,8 @@ public class Editora {
 		return UF;
 	}
 	
-	public void setUF(String uF) {
-		UF = uF;
+	public void setUF(String UF) {
+		this.UF = UF;
 	}
 	
 	public int getIdEditora() {
