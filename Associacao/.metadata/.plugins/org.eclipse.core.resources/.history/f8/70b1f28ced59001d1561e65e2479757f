@@ -1,0 +1,100 @@
+package br.com.unit.associacao;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
+public class AppLivraria {
+	public static void main(String[] args) {
+		Scanner input = new Scanner(System.in);
+		int opcaoEscolhida;
+		
+		ArrayList<Editora> listaEditoras = new ArrayList<Editora>();
+		ArrayList<Livro> listaLivros = new ArrayList<Livro>();
+		ArrayList<Genero> listaGeneros = new ArrayList<Genero>();
+		
+		System.out.println("=== Livraria ===");
+		
+		do {
+			System.out.println("== Opções ==\n"
+					+ "[1] - Adicionar Editora\n"
+					+ "[2] - Adicionar Gênero\n"
+					+ "[3] - Adicionar Livro\n"
+					+ "[0] - Sair");
+			opcaoEscolhida = input.nextInt();
+			switch (opcaoEscolhida) {
+			case 1:
+				System.out.println("== Cadastro de Editora ==\n");
+				System.out.println("Razão Social:");
+				String razaoSocial = input.nextLine();
+				
+				System.out.println("Contato:");
+				String contato = input.nextLine();
+			
+				System.out.println("Cidade:");
+				String cidade = input.nextLine();
+				
+				System.out.println("UF:");
+				String UF = input.nextLine();
+				
+				listaEditoras.add(new Editora(listaEditoras.size(), razaoSocial, contato, cidade, UF));
+				break;
+			case 2:
+				System.out.println("== Cadastro de Gênero ==");
+				System.out.println("Nome:");
+				String nomeGenero = input.next();
+								
+				listaGeneros.add(new Genero(listaGeneros.size(), nomeGenero));
+				break;
+			case 3:
+				System.out.println("== Cadastro de Livro ==");
+				System.out.println("Título:");
+				String titulo = input.next();
+				
+				System.out.println("ISBN:");
+				String ISBN = input.next();
+				
+				System.out.println("Número de páginas:");
+				int numeroPaginas = input.nextInt();
+		
+				boolean verificadorEditora = true;
+				int indexEditora = 0;
+				do {
+					System.out.println("Editora: ");
+					String editora = input.next();
+					
+					for(Editora e : listaEditoras) {
+						if(e.getRazaoSocial().equals(editora)) {
+							verificadorEditora = !verificadorEditora;
+							indexEditora = e.getIdEditora();
+						} else {
+							System.out.println("Essa editora não está cadastrada.");
+						}
+					}
+				} while(verificadorEditora);
+				
+				boolean verificadorGenero = true;
+				int indexGenero = 0;
+				do {
+					System.out.println("Gênero:");
+					String genero = input.next();
+					
+					for(Genero g : listaGeneros) {
+						if(g.getNomeGenero().equals(genero)) {
+							verificadorGenero = !verificadorGenero;
+							indexGenero = g.getIdGenero();
+						} else {
+							System.out.println("Gênero não cadastrado.");
+						}
+					}
+				} while(verificadorGenero);
+			
+				listaLivros.add(new Livro(100, titulo, ISBN, numeroPaginas, listaEditoras.get(indexEditora), listaGeneros.get(indexGenero)));
+			default:
+				break;
+			}
+		} while(opcaoEscolhida != 0);
+		
+		input.close();
+	}	
+
+}
